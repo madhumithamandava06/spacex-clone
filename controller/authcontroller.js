@@ -1,6 +1,7 @@
 const Auth = require('../models/Auth');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const appendUser = require('../utils/googleSheet');
 exports.register = async (req, res) => {
     try {
 
@@ -21,7 +22,7 @@ exports.register = async (req, res) => {
             email,
             password: hashedPassword
         });
-
+await appendUser(user.name, user.email);
         res.status(201).json({
     message: "User Registered Successfully",
     data: {
